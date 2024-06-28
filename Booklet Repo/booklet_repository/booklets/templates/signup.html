@@ -1,0 +1,32 @@
+{% extends 'base.html' %} {% comment %} <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Signup</title>
+    </head>
+    <body>
+        <h2>Signup</h2>
+        <form method="post">
+            {% csrf_token %} {{ form.as_p }}
+            <button type="submit">Signup</button>
+        </form>
+    </body>
+</html>
+{% endcomment %} {% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title text-center">Sign Up</h3>
+                <form method="post" action="{% url 'account_signup' %}">
+                    {% csrf_token %} {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary btn-block">
+                        Sign Up
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %} {% comment %} <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Upload Booklet</title>
+    </head>
+    <body>
+        <h2>Upload Booklet</h2>
+        {% if user.is_superuser%}
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %} {{ form.as_p }}
+            <button type="submit">Upload</button>
+        </form>
+        {% else %}
+        <p>You are not authorized to upload booklets.</p>
+        <a href="{% url 'booklet_list'%}">Booklet List</a>
+        {% endif %}
+    </body>
+</html>
+{% endcomment %} {% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title text-center">Upload New Booklet</h3>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="id_title">Title</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="id_title"
+                            name="title"
+                            required
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_file">Upload PDF</label>
+                        <input
+                            type="file"
+                            class="form-control-file"
+                            id="id_file"
+                            name="file"
+                            accept="application/pdf"
+                            required
+                        />
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">
+                        Upload
+                    </button>
+                </form>
+                <div class="text-center mt-3">
+                    <a href="{% url 'booklet_list' %}" class="btn btn-secondary"
+                        >Back to Booklets</a
+                    >
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
